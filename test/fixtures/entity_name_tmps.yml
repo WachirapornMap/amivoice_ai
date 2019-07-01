@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  entities_name: MyString
+  version_id: 1
+  version_date: 2019-04-29 17:35:03
+
+two:
+  entities_name: MyString
+  version_id: 1
+  version_date: 2019-04-29 17:35:03

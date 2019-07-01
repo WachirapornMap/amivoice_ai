@@ -1,0 +1,23 @@
+<% is_user_logged_in? %>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col">
+<!--------- HEAD --------->
+    <div class="mdl-grid ">
+      <div class="mdl-cell mdl-cell--12-col">
+        <h4>New Intention</h4> 
+      </div>
+    </div>  
+    <hr>
+<!------------- Form -------------->
+    <%= render 'form' %>
+<!--------- DATA TABLE --------->
+     <hr>  
+     <div>
+       <%= render 'intention_table' %>
+    </div>
+
+  </div>
+</div>
+
+

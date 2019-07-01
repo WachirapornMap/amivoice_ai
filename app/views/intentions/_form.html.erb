@@ -1,0 +1,56 @@
+<%= form_for @intention, url: intentions_path do |f| %>
+    <div class="mdl-grid">
+
+        <div class="mdl-grid row">
+      <div class="mdl-cell mdl-cell--1-col"></div>
+      <div class="mdl-cell mdl-cell--2-col title">
+        <h5>Intention Code:</h5>
+      </div>
+      <div class="mdl-cell mdl-cell--8-col textfield" id="textfield_intention">  
+          <%= image_tag("asterisk.png", size: "8x8")%>
+          <div class="mdl-textfield mdl-js-textfield" style = "width: 90%">
+             <%= f.text_field :intention_code,  id:"txt_intention_code", class:"mdl-textfield__input", pattern:"-?[0-9]*(\.[0-9]+)?" , required: true, oninvalid:"setCustomValidity('Enter intention code only number.')",onchange:"try{setCustomValidity('')}catch(e){}", maxlength: 10, size: 200 %> 
+              <label class = "mdl-textfield__label" for = "txt_intention_code"></label>
+          </div>
+      </div>
+      <div class="mdl-cell mdl-cell--1-col"> </div>
+    </div>
+
+    <div class="mdl-grid row">
+      <div class="mdl-cell mdl-cell--1-col"></div>
+      <div class="mdl-cell mdl-cell--2-col title">
+        <h5>Intention Tag:</h5>
+      </div>
+      <div class="mdl-cell mdl-cell--8-col textfield" id="textfield_intention">  
+          <%= image_tag("asterisk.png", size: "8x8")%>
+          <div class="mdl-textfield mdl-js-textfield" style = "width: 90%">
+            <%= f.text_field :intention_tag,  id:"txt_intention_tag", class:"mdl-textfield__input", required: true, onchange:"validate_intention()", maxlength: 100, size: 200 %>
+            <label class="mdl-textfield__label" for="sample3"></label>
+          </div>
+      </div>
+      <div class="mdl-cell mdl-cell--1-col"> </div>
+    </div>
+    <div class="mdl-grid row">  
+      <div class="mdl-cell mdl-cell--1-col"></div>
+      <div class="mdl-cell mdl-cell--2-col title">
+        <h5>Intention Name: </h5>
+      </div>
+      <div class="mdl-cell mdl-cell--8-col textfield" id="textfield_intention"> 
+          <%= image_tag("asterisk.png", size: "8x8")%>
+          <div class="mdl-textfield mdl-js-textfield" style = "width: 90%">
+            <%= f.text_field :intention_name,  id:"txt_intention_name", class:"mdl-textfield__input", required: true, onchange:"validate_intention()", maxlength: 200 %>
+            <label class="mdl-textfield__label" for="sample3"></label>
+          </div>
+          <div>  <%= f.hidden_field :intention_id, :value => params[:id], id:"txt_intention_id" %> </div>
+          <div class="mdl-grid" style="float: right;" >
+             <%= f.submit @submit_bt, class:"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored", id:"btn_submit" %>  
+          </div>
+      </div>
+      <div class="mdl-cell mdl-cell--1-col"> </div>
+    </div>
+  
+
+
+
+    </div>    
+    <% end %>

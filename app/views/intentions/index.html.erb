@@ -1,0 +1,23 @@
+<% is_user_logged_in? %>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--11-col">
+        <h4>Intention List</h4> 
+      </div>
+      <div class="mdl-cell mdl-cell--1-col" style = "display:block">
+      <%= link_to new_intentions_path, class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored", style:"width: 111px" do%>+ Add Intention <% end %>
+      
+      </div>
+    </div>   
+    <hr>  
+     <%= render 'intention_table' %>
+  
+  </div> 
+</div> 
+  
+
+
+
+
+

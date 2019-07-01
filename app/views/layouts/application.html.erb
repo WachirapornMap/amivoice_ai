@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmiVoice AI</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ 
+  </head>
+  <body data-turbolinks="false">
+  <% flash.each do |name, msg|%> 
+    <% i=0 %>
+    <% while i < msg.length do %>  
+      <% if name == "warning_login" %>
+        <div class="alert alert-danger fade in" id="log-in">
+          <i class="material-icons" id="error_icon" style="display:middle;" >error&nbsp;&nbsp;</i>
+          <span><h6 style="display:inline;"><%= msg[i] %></h6></span>
+          <% i = i+1%> 
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+      <% else %>
+                <% i = i+1%>
+      <% end %>
+    <% end %>  
+  <% end %>
+  <% if current_user.present? %>
+  <!-- MDL Progress Bar with Indeterminate Progress -->
+  <div id="icon-loadding" class="mdl-js-progress"></div>
+  <header class="mdl-layout__header"> 
+    <div class="mdl-layout__header-row" >
+      <!-- Title -->
+      <%= link_to amivoice_ai_path, :class => "mdl-navigation__link" do %>
+        <span class="mdl-layout-title"><b>AmiVoice AI Tool</b></span>
+      <% end %>
+      <!-- Add spacer, to align navigation to the right --> 
+      <div class="mdl-layout-spacer"></div>
+            <% if current_user.present? %>
+              <button id="more-button" style="pointer-events: none;">
+                <i class="material-icons" style="float:left">face</i>
+                <p id="admin"><%= current_user.display_name %></p>
+              </button>
+            <% end %>
+      <%# <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button"> 
+         link_to logout_auth_path, method: :delete, :class => "mdl-navigation__link" do 
+          <li class="mdl-menu__item">Log out</li>
+         end 
+      </ul> %>
+    </div>  
+  </header>
+  <% end %>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+  <% if current_user.present? %>
+  <div class="mdl-layout__drawer">
+    <nav class="mdl-navigation">
+      <%= link_to "<i class='large material-icons'>settings_voice</i>&nbsp; &nbsp;Intention".html_safe, intentions_path,class: "mdl-navigation__link", :onclick => 'get_loading_body()' %> 
+    </nav>
+  </div>  
+  <% end %>
+<main class="mdl-layout__content">
+    <div class="page-content">
+      <div class="alert alert-success fade in" id="delete_success" style="display:none"><i class="material-icons" id="error_icon" style="display:middle;" >check_circle&nbsp;&nbsp;</i><span><h6 style="display:inline;">Data has been deleted!</h6></span><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span></div>
+        <% flash.each do |name, msg|%>
+          <% i=0 %>
+          <% while i < msg.length do %>  
+            <% if name != "warning_login" %>  
+              <div class="alert alert-<%= name %> div-<%= i %> fade in">
+                <% if name == "danger" %>
+                  <i class="material-icons" id="error_icon" style="display:middle;" >error&nbsp;&nbsp;</i>
+                <% elsif name == "success"%>
+                  <i class="material-icons" id="error_icon" style="display:middle;" >check_circle&nbsp;&nbsp;</i>
+                <% else %>
+                  <i class="material-icons" id="error_icon" style="display:middle;" >error&nbsp;&nbsp;</i>
+                <% end %>    
+                  <span><h6 style="display:inline;"><%= msg[i] %></h6></span>
+                  <% i = i+1%> 
+                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+              </div>
+            <% else %>
+                  <% i = i+1%>
+            <% end %>
+          <% end %>  
+        <% end %>
+    </div>
+    
+    <%= yield %>
+    
+  </main>
+</div> 
+<% if @RESULT_AMIDICT.present? %>
+<!-- Modal -->
+  <dialog id="dia1" class="mdl-dialog mdl-typography--text-center">
+    <h4 class="mdl-dialog__title">Illegal spoken form</h4>  
+    <div class="mdl-dialog__content">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+          <div class="illegal" style="width: 98%; margin-left: 0px">
+            <i class="material-icons" id="error_icon" style="position:absolute; transform: translateY(1%);font-size:20px;" >error&nbsp; &nbsp;</i>
+            <label style="transform: translateY(-10%);">&nbsp; &nbsp; &nbsp; &nbsp; user.rcd has an illegal spoken form. Please correct and release again</label>
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--12-col">
+          <table class="display compact table_amidict" style="width:100%">
+            <thead>
+              <tr> 
+                <th class="mdl-data-table__cell--non-numeric" >Word</th>
+                <th class="mdl-data-table__cell--non-numeric" >Pronunciation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%  @RESULT_AMIDICT.each do |n|
+                  next if n.match("null")
+                    spilt_txt = n.split(' ')
+                    @word = spilt_txt.first
+                    @pronunciation = spilt_txt.last.gsub('.',' ') 
+              %> 
+              <tr> 
+                <td style="text-align:left; width: 50%"><%=@word%></td>
+                <td style="text-align:left; width: 50%"><%=@pronunciation%></td>
+              </tr>
+              <%  end %> 
+            </tbody>
+          </table> 
+        </div>
+      </div>
+    </div>
+    <div class="mdl-dialog__actions">  
+      <button id="close_amidict" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored close">Close</button>
+      <%= link_to "Download", dictionary_path(format: "xlsx"), class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored", style:"float:right" %>  
+    </div>
+  </dialog>
+<% end %>
+  </body>
+ 
+  <script>
+      var count = <%= @count_notification %> ;
+      var span_id = document.getElementById("notification");
+      if (count > 0) {
+        span_id.classList.add('mdl-badge');
+        document.getElementById("release-version-dictionary").disabled = true;
+      }  
+  </script>
+</html>

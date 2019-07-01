@@ -1,0 +1,8 @@
+{
+  "name": "amivoice_ai",
+  "private": true,
+  "dependencies": {
+    "es6-promise": "^4.2.8",
+    "sweetalert2": "^8.13.0"
+  }
+}

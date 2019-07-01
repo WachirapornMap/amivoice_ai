@@ -1,0 +1,10 @@
+development:
+    one: AmiDnnThaiTelephony8k_Bay_GLMcleanDict_v6
+
+test:
+    one: AmiDnnThaiTelephony8k_Bay_GLMcleanDict_v6
+
+production:
+    one: AmiDnnThaiTelephony8k_Bay_GLMcleanDict_v6
+
+#one: AmiDnnThaiTelephony8k_Bay_GLMcleanDict_v9 

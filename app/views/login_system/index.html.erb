@@ -1,0 +1,30 @@
+<div class="mdl-grid full-width">
+  <div class="mdl-cell mdl-cell--5-col">
+    <div id="fill-username">
+        <%= form_for :from_login, url: login_auth_path, method: :POST do |f| %> 
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:65%">
+                <h6>Username</h6> 
+                <%= f.text_field :username, class:"mdl-textfield__input", id:"username", maxlength: 100, :disabled => false %>  
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label password" style="width:65%">  
+                <h6>Password</h6> 
+                <%= f.password_field :password, class:"mdl-textfield__input", id:"password", maxlength: 100, :disabled => false %>
+
+            </div>
+                    
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--2-col"></div>
+                <div class="mdl-cell mdl-cell--10-col">
+                    <%= f.submit "Login", class:"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored", style:"float:left;margin-left:30px;", :disabled => false %>
+                </div>
+            </div> 
+        <% end %> 
+    </div>
+  </div>
+  <div class="mdl-cell mdl-cell--7-col right-side">
+    <div id="title_login">
+        <h1 style="margin-bottom:0px;">AmiVoice AI Tools</h1>
+        <hr style="align:center" id="line_login">
+    </div>    
+  </div>
+</div>
