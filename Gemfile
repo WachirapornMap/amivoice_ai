@@ -79,7 +79,7 @@ gem  'sweet-alert-confirm'
 gem 'sweet-alert2-rails'
 gem 'sweetalert-rails'
 gem 'dialog-polyfill-rails', '~> 0.4.5.1'  
-gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'kaminari', '~> 1.2'
 gem "select2-rails"
 gem 'config' 
 gem 'jquery-datatables'
